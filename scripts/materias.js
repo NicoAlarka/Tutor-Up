@@ -9,8 +9,8 @@ document.addEventListener('DOMContentLoaded', function() {
     // se crea evento click para cada botón
     botonesExplorar.forEach(boton => {
         boton.addEventListener('click', function() {
-            
-            // Encontrar la tarjeta de categoría padre más cercana
+
+            // Encontrar la tarjeta de categoría principal
             const tarjetaCategoria = this.closest('.tarjeta-categoria');
             
             // Obtener el nombre de la categoría (texto del h3)
