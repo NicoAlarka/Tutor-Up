@@ -6,9 +6,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // Seleccionar todos los botones de explorar (usando la clase correcta 'boton-explorar')
     const botonesExplorar = document.querySelectorAll('.boton-explorar');
     
-    // Añadir evento click a cada botón
+    // se crea evento click para cada botón
     botonesExplorar.forEach(boton => {
         boton.addEventListener('click', function() {
+            
             // Encontrar la tarjeta de categoría padre más cercana
             const tarjetaCategoria = this.closest('.tarjeta-categoria');
             
