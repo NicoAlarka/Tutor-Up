@@ -39,7 +39,8 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Añadir efectos hover a cada tarjeta
     tarjetasCategoria.forEach(tarjeta => {
-        // Cuando el mouse entra en la tarjeta
+
+        // Cuando el mouse se ubica  en la tarjeta
         tarjeta.addEventListener('mouseenter', function() {
             this.style.transform = 'translateY(-10px)';
             this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.15)';
@@ -53,15 +54,4 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // =============================================
-    // 3. POSIBLES MEJORAS FUTURAS (COMENTADAS)
-    // =============================================
-    /*
-    // Ejemplo para cargar dinámicamente las categorías desde una API:
-    fetch('/api/categorias')
-      .then(response => response.json())
-      .then(data => {
-          // Lógica para crear las tarjetas dinámicamente
-      });
-    */
 });
