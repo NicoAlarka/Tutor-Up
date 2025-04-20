@@ -1,3 +1,21 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Espacio entre imagen y texto */
+}
+
+.logo-imagen {
+    width: 50px; /* Tamaño ajustable */
+    height: 50px;
+}
+
+.logo-texto h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #10EBC9;
+}
+    
 /* Contenedor principal de categorías */
 .categorias {
     padding: 2rem;
@@ -37,7 +55,7 @@
 
 /* Estilos del botón */
 .boton-explorar {
-    background-color: #3498db;
+    background-color: #10EBC9;
     color: white;
     border: none;
     padding: 0.5rem 1rem;
@@ -48,5 +66,5 @@
 }
 
 .boton-explorar:hover {
-    background-color: #2980b9;
+    background-color: #10EBC9;
 }
