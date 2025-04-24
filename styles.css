@@ -1,0 +1,70 @@
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px; /* Espacio entre imagen y texto */
+}
+
+.logo-imagen {
+    width: 50px; /* Tamaño ajustable */
+    height: 50px;
+}
+
+.logo-texto h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: #10EBC9;
+}
+    
+/* Contenedor principal de categorías */
+.categorias {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Título de la sección */
+.categorias h2 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 2rem;
+}
+
+/* Grid para organizar las tarjetas */
+.contenedor-categorias {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Estilos de cada tarjeta */
+.tarjeta-categoria {
+    background: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-align: center;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Efecto al pasar el mouse */
+.tarjeta-categoria:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Estilos del botón */
+.boton-explorar {
+    background-color: #10EBC9;
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background-color 0.3s;
+}
+
+.boton-explorar:hover {
+    background-color: #10EBC9;
+}
