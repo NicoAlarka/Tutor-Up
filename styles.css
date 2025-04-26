@@ -1,3 +1,19 @@
+/*Se declara una variable para manejar el color principal de la pàgina*/
+:root{
+    --primary-color: ;
+ }
+ 
+ /*Diseño general-permite que el contenido mo exceda el tamaño de la pantalla y no genere scroll lateral*/
+ *{
+     box-sizing: border-box;
+     margin: 0;
+     padding: 0;
+ }
+ /*Tamaño de la letra para trabajar en 1rem=10px*/
+ html{
+     font-size: 62.5%;
+ }
+
 .logo {
     display: flex;
     align-items: center;
