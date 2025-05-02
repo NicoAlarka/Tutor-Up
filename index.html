@@ -1,4 +1,4 @@
-html = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
@@ -13,216 +13,119 @@ html = """<!DOCTYPE html>
       --accent: #3bd1aa;
       --text-light: #eee;
       --text-muted: #bbb;
+      --lateral-width: 1.5cm;
+      --lateral-handle: 10px;
+      --lateral-bg: #171616;
     }
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-      font-family: 'Roboto', sans-serif;
-    }
-    body {
+    * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
+    body { display: flex; background: var(--bg-dark); color: var(--text-light); min-height: 100vh; }
+
+    /* Menú lateral */
+    .lateral {
+      position: fixed;
+      top: 0;
+      left: calc(-1 * var(--lateral-width) + var(--lateral-handle));
+      width: var(--lateral-width);
+      height: 100vh;
+      background: var(--lateral-bg);
+      transition: left 0.3s ease;
+      z-index: 100;
       display: flex;
-      background: var(--bg-dark);
-      color: var(--text-light);
-      min-height: 100vh;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
     }
+    .lateral:hover { left: 0; }
+
+    .lateral ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; align-items: center; width: 100%; }
+    .lateral ul li { margin: 20px 0; width: 100%; text-align: center; }
+
+    /* Quitar subrayado de enlaces */
+    .lateral ul li a {
+      display: block;
+      text-decoration: none;
+      outline: none;
+    }
+
+    .lateral ul li img,
+    .lateral ul li a i {
+      font-size: 1.2rem;
+      color: var(--text-muted);
+      opacity: 0.6;
+      transition: transform 0.3s, color 0.3s, opacity 0.3s;
+      display: block;
+      margin: 0 auto;
+      width: 1em;
+    }
+    .lateral ul li img { width: 1cm; height: auto; }
+
+    /* Highlight active and on hover; solo agrandar y aclarar sin líneas */
+    .lateral ul li a.active img,
+    .lateral ul li a.active i,
+    .lateral ul li a:hover img,
+    .lateral ul li a:hover i {
+      color: var(--text-light);
+      transform: scale(1.4);
+      opacity: 1;
+    }
+
+    /* Sidebar desplazado */
     .sidebar {
       width: 340px;
       background: var(--bg-sidebar);
       padding: 20px;
       position: fixed;
-      top: 0; left: 0; bottom: 0;
+      top: 0;
+      left: var(--lateral-width);
+      bottom: 0;
       overflow-y: auto;
     }
-    .search {
-      display: flex;
-      align-items: center;
-      margin-bottom: 30px;
-    }
-    .search i {
-      font-size: 1.2rem;
-      margin-right: 10px;
-      color: var(--text-muted);
-    }
-    .search input {
-      flex: 1;
-      padding: 10px 15px;
-      border: none;
-      border-radius: 20px 0 0 20px;
-      background: #333;
-      color: var(--text-light);
-    }
-    .search button {
-      padding: 10px 20px;
-      border: 2px solid var(--accent);
-      background: transparent;
-      color: var(--accent);
-      border-radius: 0 20px 20px 0;
-      cursor: pointer;
-      transition: background .2s;
-    }
-    .search button:hover {
-      background: var(--accent);
-      color: var(--bg-dark);
-    }
-    .filter-group {
-      background: #2a2a2a;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-    }
-    .filter-group h4 {
-      margin-bottom: 10px;
-      font-size: 1rem;
-      color: var(--text-muted);
-    }
-    .filter-group label {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-      cursor: pointer;
-      font-size: .95rem;
-    }
-    .filter-group input[type="checkbox"] {
-      margin-right: 10px;
-      accent-color: var(--accent);
-    }
+    .search { display: flex; align-items: center; margin-bottom: 30px; }
+    .search i { font-size: 1.2rem; margin-right: 10px; color: var(--text-muted); }
+    .search input { flex: 1; padding: 10px 15px; border: none; border-radius: 20px 0 0 20px; background: #333; color: var(--text-light); }
+    .search button { padding: 10px 20px; border: 2px solid var(--accent); background: transparent; color: var(--accent); border-radius: 0 20px 20px 0; cursor: pointer; transition: background .2s; }
+    .search button:hover { background: var(--accent); color: var(--bg-dark); }
+    .filter-group { background: #2a2a2a; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
+    .filter-group h4 { margin-bottom: 10px; font-size: 1rem; color: var(--text-muted); }
+    .filter-group label { display: flex; align-items: center; margin-bottom: 8px; cursor: pointer; font-size: .95rem; }
+    .filter-group input[type="checkbox"] { margin-right: 10px; accent-color: var(--accent); }
 
-    .content {
-      margin-left: 340px;
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-    }
-    .topbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 30px 20px 10px;
-    }
-    .topbar h1 {
-      font-size: 4rem;
-      color: rgba(255, 255, 255, 0.1);
-      text-align: left;
-      font-weight: bold;
-      letter-spacing: 2px;
-    }
-    .topbar .actions button {
-      margin-left: 10px;
-      background: none;
-      border: none;
-      color: var(--text-light);
-      font-size: 1.2rem;
-      cursor: pointer;
-    }
-
-    .carousel {
-      position: relative;
-      padding: 0 60px;
-    }
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      padding: 20px 0;
-    }
-    .arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--bg-card);
-      border: none;
-      width: 40px; height: 40px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
+    /* Contenido principal */
+    .content { margin-left: calc(340px + var(--lateral-width)); flex: 1; display: flex; flex-direction: column; }
+    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px 20px 10px; }
+    .topbar h1 { font-size: 4rem; color: rgba(255,255,255,0.1); font-weight: bold; letter-spacing: 2px; }
+    .topbar .actions button { margin-left: 10px; background: none; border: none; color: var(--text-light); font-size: 1.2rem; cursor: pointer; }
+    .carousel { position: relative; padding: 0 60px; }
+    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 20px 0; }
+    .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: var(--bg-card); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
     .arrow.prev { left: 2px; }
     .arrow.next { right: 2px; }
-
-    .card {
-      background: var(--bg-card);
-      border-radius: 8px;
-      padding: 16px;
-      display: flex;
-      align-items: flex-start;
-      position: relative;
-    }
-    .card .tag {
-      position: absolute;
-      top: 16px;
-      left: 16px;
-      background: var(--accent);
-      color: var(--bg-dark);
-      font-size: .75rem;
-      padding: 2px 8px;
-      border-radius: 12px;
-    }
-    .card img {
-      width: 130px;
-      height: 130px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right:55px;
-      margin-top: 35px;
-    }
-    .card-content {
-      flex: 1;
-    }
-    .card-content h3 {
-      margin-bottom: 14px;
-      font-size: 1.1rem;
-      text-align: left;
-    }
-    .card-content .rating {
-      display: flex;
-      align-items: center;
-      margin-bottom: 8px;
-    }
-    .card-content .rating i {
-      margin-right: 4px;
-      color: var(--accent);
-      font-size: .9rem;
-    }
-    .card-content .rating span {
-      margin-left: 13px;
-      font-size: .85rem;
-      color: var(--text-muted);
-    }
-    .card-content .price,
-    .card-content .experience {
-      display: flex;
-      align-items: center;
-      font-size: .9rem;
-      margin-bottom: 8px;
-      color: var(--text-light);
-    }
-    .card-content .experience i {
-      margin-right: 6px;
-      color: var(--text-muted);
-    }
-    .card-content .btn-book {
-      margin-top: 25px;
-      display: inline-block;
-      padding: 6px 12px;
-      border: 2px solid var(--accent);
-      border-radius: 20px;
-      color: var(--accent);
-      text-decoration: none;
-      font-size: .9rem;
-      transition: background .2s;
-    }
-    .card-content .btn-book:hover {
-      background: var(--accent);
-      color: var(--bg-dark);
-    }
-    .fas.fa-star {
-    color: #41B3A2;
-    text-shadow: -2px 2px 3px #00A79D;
-}
+    .card { background: var(--bg-card); border-radius: 8px; padding: 16px; display: flex; align-items: flex-start; position: relative; }
+    .card .tag { position: absolute; top: 16px; left: 16px; background: var(--accent); color: var(--bg-dark); font-size: .75rem; padding: 2px 8px; border-radius: 12px; }
+    .card img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-right:55px; margin-top: 35px; }
+    .card-content { flex: 1; }
+    .card-content h3 { margin-bottom:14px; font-size:1.1rem; }
+    .card-content .rating i { margin-right:4px; color:var(--accent); font-size:.9rem; }
+    .card-content .rating span { margin-left:13px; font-size:.85rem; color:var(--text-muted); }
+    .card-content .price, .card-content .experience { display:flex; align-items:center; font-size:.9rem; margin-bottom:8px; color:var(--text-light); }
+    .card-content .experience i { margin-right:6px; color:var(--text-muted); }
+    .card-content .btn-book { margin-top:25px; display:inline-block; padding:6px 12px; border:2px solid var(--accent); border-radius:20px; color:var(--accent); text-decoration:none; font-size:.9rem; transition:background .2s; }
+    .card-content .btn-book:hover { background:var(--accent); color:var(--bg-dark); }
+    .fas.fa-star { color:#41B3A2; text-shadow:-2px 2px 3px #00A79D; }
   </style>
 </head>
 <body>
-  <aside class="sidebar">
+  <!-- Menú lateral -->
+  <nav class="lateral">
+    <ul>
+      <li><img src="menu.png" alt="Logo"></li>
+      <li><a href="#home" class="menu-link"><i class="fas fa-home"></i></a></li>
+      <li><a href="#filtros" class="menu-link"><i class="fas fa-book"></i></a></li>
+      <li><a href="#carousel" class="menu-link active"><i class="fas fa-graduation-cap"></i></a></li>
+    </ul>
+  </nav>
+  <!-- Sidebar original -->
+  <aside id="filtros" class="sidebar">
     <div class="search">
       <i class="fas fa-user-graduate"></i>
       <input type="text" placeholder="¿Qué quieres aprender hoy?">
@@ -238,19 +141,18 @@ html = """<!DOCTYPE html>
     <div class="filter-group">
       <h4>Calificación</h4>
       <label><input type="checkbox" checked>
-        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
       </label>
       <label><input type="checkbox">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i>
-        <i class="fas fa-star"></i><i class="fas fa-star"></i>
+        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
       </label>
       <label><input type="checkbox">
         <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
       </label>
     </div>
   </aside>
-  <div class="content">
+  <!-- Contenido principal -->
+  <div id="home" class="content">
     <header class="topbar">
       <h1>FÍSICA</h1>
       <div class="actions">
@@ -258,27 +160,35 @@ html = """<!DOCTYPE html>
         <button>AR</button>
       </div>
     </header>
-    <section class="carousel">
+    <section id="carousel" class="carousel">
       <button class="arrow prev"><i class="fas fa-chevron-left"></i></button>
       <div class="cards" id="cards-container"></div>
       <button class="arrow next"><i class="fas fa-chevron-right"></i></button>
     </section>
   </div>
-
   <script>
+    // Activar icono y scroll suave
+    document.querySelectorAll('.lateral .menu-link').forEach(link => {
+      link.addEventListener('click', e => {
+        e.preventDefault();
+        document.querySelectorAll('.lateral .menu-link').forEach(l => l.classList.remove('active'));
+        link.classList.add('active');
+        const target = document.querySelector(link.getAttribute('href'));
+        if (target) target.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+    // Carrusel de tarjetas
     const teachers = [
       { name:'Pedro Pascal', rating:5, opinions:15, price:95000, experience:20, featured:true, img:'https://via.placeholder.com/80' },
       { name:'Henry Cavill', rating:5, opinions:125, price:155000, experience:10, featured:true, img:'https://via.placeholder.com/80' },
       { name:'Pedro Pascal', rating:5, opinions:15, price:95000, experience:20, featured:true, img:'https://via.placeholder.com/80' },
       { name:'Henry Cavill', rating:5, opinions:125, price:155000, experience:10, featured:true, img:'https://via.placeholder.com/80' },
       { name:'Pedro Pascal', rating:5, opinions:15, price:95000, experience:20, featured:true, img:'https://via.placeholder.com/80' },
-      { name:'Henry Cavill', rating:5, opinions:125, price:155000, experience:10, featured:true, img:'https://via.placeholder.com/80' },
+      { name:'Henry Cavill', rating:5, opinions:125, price:155000, experience:10, featured:true, img:'https://via.placeholder.com/80' }
     ];
-
     let currentPage = 0;
     const cardsPerPage = 6;
     const container = document.getElementById('cards-container');
-
     function renderCards() {
       container.innerHTML = '';
       const slice = teachers.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
@@ -296,7 +206,7 @@ html = """<!DOCTYPE html>
           <div class="card-content">
             <h3>${t.name}</h3>
             <div class="rating">
-              ${[...Array(5)].map((_,i)=>`<i class="fas fa-star" style="${i<t.rating?'':'opacity:.3'}"></i>`).join('')}
+              ${[...Array(5)].map((_, i) => `<i class="fas fa-star" style="${i < t.rating ? '' : 'opacity:.3'}"></i>`).join('')}
               <span>${t.opinions} opiniones</span>
             </div>
             <div class="price">$${t.price.toLocaleString()}</div>
@@ -306,16 +216,14 @@ html = """<!DOCTYPE html>
         container.append(card);
       });
     }
-
     document.querySelector('.arrow.prev').onclick = () => {
-      currentPage = currentPage > 0 ? currentPage - 1 : Math.floor((teachers.length-1)/cardsPerPage);
+      currentPage = currentPage > 0 ? currentPage - 1 : Math.floor((teachers.length - 1) / cardsPerPage);
       renderCards();
     };
     document.querySelector('.arrow.next').onclick = () => {
       currentPage = (currentPage + 1) * cardsPerPage < teachers.length ? currentPage + 1 : 0;
       renderCards();
     };
-
     renderCards();
   </script>
 </body>
