@@ -7,27 +7,27 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
   <style>
     :root {
-      --bg-dark: #1a1a1a;
-      --bg-sidebar: #222;
-      --bg-card: #2e3a3f;
-      --accent: #3bd1aa;
-      --text-light: #eee;
-      --text-muted: #bbb;
-      --lateral-width: 1.5cm;
-      --lateral-handle: 10px;
-      --lateral-bg: #171616;
+      --fondo-oscuro: #1a1a1a;
+      --fondo-barra-lateral: #222;
+      --fondo-tarjeta: #2e3a3f;
+      --color-acento: #3bd1aa;
+      --texto-claro: #eee;
+      --texto-atenuado: #bbb;
+      --ancho-lateral: 1.5cm;
+      --asa-lateral: 10px;
+      --fondo-lateral: #171616;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Roboto', sans-serif; }
-    body { display: flex; background: var(--bg-dark); color: var(--text-light); min-height: 100vh; }
+    body { display: flex; background: var(--fondo-oscuro); color: var(--texto-claro); min-height: 100vh; }
 
-    /* Menú lateral */
-    .lateral {
+    /* Bloque: menu-lateral */
+    .menu-lateral {
       position: fixed;
       top: 0;
-      left: calc(-1 * var(--lateral-width) + var(--lateral-handle));
-      width: var(--lateral-width);
+      left: calc(-1 * var(--ancho-lateral) + var(--asa-lateral));
+      width: var(--ancho-lateral);
       height: 100vh;
-      background: var(--lateral-bg);
+      background: var(--fondo-lateral);
       transition: left 0.3s ease;
       z-index: 100;
       display: flex;
@@ -35,144 +35,300 @@
       align-items: center;
       padding-top: 20px;
     }
-    .lateral:hover { left: 0; }
+    .menu-lateral:hover { left: 0; }
 
-    .lateral ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; align-items: center; width: 100%; }
-    .lateral ul li { margin: 20px 0; width: 100%; text-align: center; }
-
-    /* Quitar subrayado de enlaces */
-    .lateral ul li a {
+    .menu-lateral__lista {
+      list-style: none;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .menu-lateral__item {
+      margin: 20px 0;
+      width: 100%;
+      text-align: center;
+    }
+    .menu-lateral__enlace {
       display: block;
       text-decoration: none;
       outline: none;
     }
-
-    .lateral ul li img,
-    .lateral ul li a i {
+    .menu-lateral__icono {
       font-size: 1.2rem;
-      color: var(--text-muted);
+      color: var(--texto-atenuado);
       opacity: 0.6;
       transition: transform 0.3s, color 0.3s, opacity 0.3s;
       display: block;
       margin: 0 auto;
       width: 1em;
     }
-    .lateral ul li img { width: 1cm; height: auto; }
-
-    /* Highlight active and on hover; solo agrandar y aclarar sin líneas */
-    .lateral ul li a.active img,
-    .lateral ul li a.active i,
-    .lateral ul li a:hover img,
-    .lateral ul li a:hover i {
-      color: var(--text-light);
+    .menu-lateral__logo {
+      width: 1cm;
+      height: auto;
+      margin-bottom: 20px;
+    }
+    .menu-lateral__enlace--activo .menu-lateral__icono,
+    .menu-lateral__enlace:hover .menu-lateral__icono {
+      color: var(--texto-claro);
       transform: scale(1.4);
       opacity: 1;
     }
 
-    /* Sidebar desplazado */
-    .sidebar {
+    /* Bloque: barra-lateral */
+    .barra-lateral {
       width: 340px;
-      background: var(--bg-sidebar);
+      background: var(--fondo-barra-lateral);
       padding: 20px;
       position: fixed;
       top: 0;
-      left: var(--lateral-width);
+      left: var(--ancho-lateral);
       bottom: 0;
       overflow-y: auto;
     }
-    .search { display: flex; align-items: center; margin-bottom: 30px; }
-    .search i { font-size: 1.2rem; margin-right: 10px; color: var(--text-muted); }
-    .search input { flex: 1; padding: 10px 15px; border: none; border-radius: 20px 0 0 20px; background: #333; color: var(--text-light); }
-    .search button { padding: 10px 20px; border: 2px solid var(--accent); background: transparent; color: var(--accent); border-radius: 0 20px 20px 0; cursor: pointer; transition: background .2s; }
-    .search button:hover { background: var(--accent); color: var(--bg-dark); }
-    .filter-group { background: #2a2a2a; padding: 15px; border-radius: 8px; margin-bottom: 20px; }
-    .filter-group h4 { margin-bottom: 10px; font-size: 1rem; color: var(--text-muted); }
-    .filter-group label { display: flex; align-items: center; margin-bottom: 8px; cursor: pointer; font-size: .95rem; }
-    .filter-group input[type="checkbox"] { margin-right: 10px; accent-color: var(--accent); }
+    .barra-lateral__busqueda {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+    .barra-lateral__icono-busqueda {
+      font-size: 1.2rem;
+      margin-right: 10px;
+      color: var(--texto-atenuado);
+    }
+    .barra-lateral__entrada {
+      flex: 1;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 20px 0 0 20px;
+      background: #333;
+      color: var(--texto-claro);
+    }
+    .barra-lateral__boton-busqueda {
+      padding: 10px 20px;
+      border: 2px solid var(--color-acento);
+      background: transparent;
+      color: var(--color-acento);
+      border-radius: 0 20px 20px 0;
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .barra-lateral__boton-busqueda:hover {
+      background: var(--color-acento);
+      color: var(--fondo-oscuro);
+    }
+    .barra-lateral__grupo-filtro {
+      background: #2a2a2a;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+    }
+    .barra-lateral__titulo-filtro {
+      margin-bottom: 10px;
+      font-size: 1rem;
+      color: var(--texto-atenuado);
+    }
+    .barra-lateral__item-filtro {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+      cursor: pointer;
+      font-size: .95rem;
+    }
+    .barra-lateral__checkbox-filtro {
+      margin-right: 10px;
+      accent-color: var(--color-acento);
+    }
 
-    /* Contenido principal */
-    .content { margin-left: calc(340px + var(--lateral-width)); flex: 1; display: flex; flex-direction: column; }
-    .topbar { display: flex; justify-content: space-between; align-items: center; padding: 20px 30px 20px 10px; }
-    .topbar h1 { font-size: 4rem; color: rgba(255,255,255,0.1); font-weight: bold; letter-spacing: 2px; }
-    .topbar .actions button { margin-left: 10px; background: none; border: none; color: var(--text-light); font-size: 1.2rem; cursor: pointer; }
-    .carousel { position: relative; padding: 0 60px; }
-    .cards { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; padding: 20px 0; }
-    .arrow { position: absolute; top: 50%; transform: translateY(-50%); background: var(--bg-card); border: none; width: 40px; height: 40px; border-radius: 50%; cursor: pointer; }
-    .arrow.prev { left: 2px; }
-    .arrow.next { right: 2px; }
-    .card { background: var(--bg-card); border-radius: 8px; padding: 16px; display: flex; align-items: flex-start; position: relative; }
-    .card .tag { position: absolute; top: 16px; left: 16px; background: var(--accent); color: var(--bg-dark); font-size: .75rem; padding: 2px 8px; border-radius: 12px; }
-    .card img { width: 130px; height: 130px; border-radius: 50%; object-fit: cover; margin-right:55px; margin-top: 35px; }
-    .card-content { flex: 1; }
-    .card-content h3 { margin-bottom:14px; font-size:1.1rem; }
-    .card-content .rating i { margin-right:4px; color:var(--accent); font-size:.9rem; }
-    .card-content .rating span { margin-left:13px; font-size:.85rem; color:var(--text-muted); }
-    .card-content .price, .card-content .experience { display:flex; align-items:center; font-size:.9rem; margin-bottom:8px; color:var(--text-light); }
-    .card-content .experience i { margin-right:6px; color:var(--text-muted); }
-    .card-content .btn-book { margin-top:25px; display:inline-block; padding:6px 12px; border:2px solid var(--accent); border-radius:20px; color:var(--accent); text-decoration:none; font-size:.9rem; transition:background .2s; }
-    .card-content .btn-book:hover { background:var(--accent); color:var(--bg-dark); }
-    .fas.fa-star { color:#41B3A2; text-shadow:-2px 2px 3px #00A79D; }
+    /* Bloque: contenido-principal */
+    .contenido-principal {
+      margin-left: calc(340px + var(--ancho-lateral));
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Bloque: barra-superior */
+    .barra-superior {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 30px 20px 10px;
+    }
+    .barra-superior__titulo {
+      font-size: 4rem;
+      color: rgba(255,255,255,0.1);
+      font-weight: bold;
+      letter-spacing: 2px;
+    }
+    .barra-superior__acciones button {
+      margin-left: 10px;
+      background: none;
+      border: none;
+      color: var(--texto-claro);
+      font-size: 1.2rem;
+      cursor: pointer;
+    }
+
+    /* Bloque: carrusel */
+    .carrusel {
+      position: relative;
+      padding: 0 60px;
+    }
+    .carrusel__tarjetas {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 20px;
+      padding: 20px 0;
+    }
+    .carrusel__boton {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--fondo-tarjeta);
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+    .carrusel__boton--anterior { left: 2px; }
+    .carrusel__boton--siguiente { right: 2px; }
+
+    /* Bloque: tarjeta */
+    .tarjeta {
+      background: var(--fondo-tarjeta);
+      border-radius: 8px;
+      padding: 16px;
+      display: flex;
+      align-items: flex-start;
+      position: relative;
+    }
+    .tarjeta__etiqueta {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      background: var(--color-acento);
+      color: var(--fondo-oscuro);
+      font-size: .75rem;
+      padding: 2px 8px;
+      border-radius: 12px;
+    }
+    .tarjeta__imagen {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 55px;
+      margin-top: 35px;
+    }
+    .tarjeta__contenido {
+      flex: 1;
+    }
+    .tarjeta__titulo {
+      margin-bottom: 14px;
+      font-size: 1.1rem;
+    }
+    .tarjeta__valoracion {
+      display: flex;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .tarjeta__icono-valoracion {
+      margin-right: 4px;
+      color: var(--color-acento);
+      font-size: .9rem;
+    }
+    .tarjeta__texto-valoracion {
+      margin-left: 13px;
+      font-size: .85rem;
+      color: var(--texto-atenuado);
+    }
+    .tarjeta__precio,
+    .tarjeta__experiencia {
+      display: flex;
+      align-items: center;
+      font-size: .9rem;
+      margin-bottom: 8px;
+      color: var(--texto-claro);
+    }
+    .tarjeta__icono-experiencia {
+      margin-right: 6px;
+      color: var(--texto-atenuado);
+    }
+    .tarjeta__boton {
+      margin-top: 25px;
+      display: inline-block;
+      padding: 6px 12px;
+      border: 2px solid var(--color-acento);
+      border-radius: 20px;
+      color: var(--color-acento);
+      text-decoration: none;
+      font-size: .9rem;
+      transition: background .2s;
+    }
+    .tarjeta__boton:hover {
+      background: var(--color-acento);
+      color: var(--fondo-oscuro);
+    }
   </style>
 </head>
 <body>
   <!-- Menú lateral -->
-  <nav class="lateral">
-    <ul>
-      <li><img src="menu.png" alt="Logo"></li>
-      <li><a href="#home" class="menu-link"><i class="fas fa-home"></i></a></li>
-      <li><a href="#filtros" class="menu-link"><i class="fas fa-book"></i></a></li>
-      <li><a href="#carousel" class="menu-link active"><i class="fas fa-graduation-cap"></i></a></li>
+  <nav class="menu-lateral">
+    <img src="menu.png" alt="Logo" class="menu-lateral__logo">
+    <ul class="menu-lateral__lista">
+      <li class="menu-lateral__item"><a href="#home" class="menu-lateral__enlace"><i class="fas fa-home menu-lateral__icono"></i></a></li>
+      <li class="menu-lateral__item"><a href="#filtros" class="menu-lateral__enlace"><i class="fas fa-book menu-lateral__icono"></i></a></li>
+      <li class="menu-lateral__item"><a href="#carousel" class="menu-lateral__enlace menu-lateral__enlace--activo"><i class="fas fa-graduation-cap menu-lateral__icono"></i></a></li>
     </ul>
   </nav>
+
   <!-- Sidebar original -->
-  <aside id="filtros" class="sidebar">
-    <div class="search">
-      <i class="fas fa-user-graduate"></i>
-      <input type="text" placeholder="¿Qué quieres aprender hoy?">
-      <button>Buscar</button>
+  <aside id="filtros" class="barra-lateral">
+    <div class="barra-lateral__busqueda">
+      <i class="fas fa-user-graduate barra-lateral__icono-busqueda"></i>
+      <input type="text" placeholder="¿Qué quieres aprender hoy?" class="barra-lateral__entrada">
+      <button class="barra-lateral__boton-busqueda">Buscar</button>
     </div>
-    <div class="filter-group">
-      <h4>Áreas de estudio</h4>
-      <label><input type="checkbox">Cálculo</label>
-      <label><input type="checkbox">Matemáticas</label>
-      <label><input type="checkbox">Química</label>
-      <label><input type="checkbox" checked>Física</label>
+    <div class="barra-lateral__grupo-filtro">
+      <h4 class="barra-lateral__titulo-filtro">Áreas de estudio</h4>
+      <label class="barra-lateral__item-filtro"><input type="checkbox" class="barra-lateral__checkbox-filtro">Cálculo</label>
+      <label class="barra-lateral__item-filtro"><input type="checkbox" class="barra-lateral__checkbox-filtro">Matemáticas</label>
+      <label class="barra-lateral__item-filtro"><input type="checkbox" class="barra-lateral__checkbox-filtro">Química</label>
+      <label class="barra-lateral__item-filtro"><input type="checkbox" checked class="barra-lateral__checkbox-filtro">Física</label>
     </div>
-    <div class="filter-group">
-      <h4>Calificación</h4>
-      <label><input type="checkbox" checked>
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </label>
-      <label><input type="checkbox">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </label>
-      <label><input type="checkbox">
-        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-      </label>
+    <div class="barra-lateral__grupo-filtro">
+      <h4 class="barra-lateral__titulo-filtro">Calificación</h4>
+      <label class="barra-lateral__item-filtro"><input type="checkbox" checked class="barra-lateral__checkbox-filtro"><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i></label>
+      <label class="barra-lateral__item-filtro"><input type="checkbox" class="barra-lateral__checkbox-filtro"><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i></label>
+      <label class="barra-lateral__item-filtro"><input type="checkbox" class="barra-lateral__checkbox-filtro"><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i><i class="fas fa-star barra-lateral__icono-valoracion"></i></label>
     </div>
   </aside>
+
   <!-- Contenido principal -->
-  <div id="home" class="content">
-    <header class="topbar">
-      <h1>FÍSICA</h1>
-      <div class="actions">
+  <div id="home" class="contenido-principal">
+    <header class="barra-superior">
+      <h1 class="barra-superior__titulo">FÍSICA</h1>
+      <div class="barra-superior__acciones">
         <button><i class="fab fa-youtube"></i></button>
         <button>AR</button>
       </div>
     </header>
-    <section id="carousel" class="carousel">
-      <button class="arrow prev"><i class="fas fa-chevron-left"></i></button>
-      <div class="cards" id="cards-container"></div>
-      <button class="arrow next"><i class="fas fa-chevron-right"></i></button>
+    <section id="carousel" class="carrusel">
+      <button class="carrusel__boton carrusel__boton--anterior"><i class="fas fa-chevron-left"></i></button>
+      <div class="carrusel__tarjetas" id="cards-container"></div>
+      <button class="carrusel__boton carrusel__boton--siguiente"><i class="fas fa-chevron-right"></i></button>
     </section>
   </div>
+
   <script>
     // Activar icono y scroll suave
-    document.querySelectorAll('.lateral .menu-link').forEach(link => {
+    document.querySelectorAll('.menu-lateral__enlace').forEach(link => {
       link.addEventListener('click', e => {
         e.preventDefault();
-        document.querySelectorAll('.lateral .menu-link').forEach(l => l.classList.remove('active'));
-        link.classList.add('active');
+        document.querySelectorAll('.menu-lateral__enlace').forEach(l => l.classList.remove('menu-lateral__enlace--activo'));
+        link.classList.add('menu-lateral__enlace--activo');
         const target = document.querySelector(link.getAttribute('href'));
         if (target) target.scrollIntoView({ behavior: 'smooth' });
       });
@@ -194,33 +350,33 @@
       const slice = teachers.slice(currentPage * cardsPerPage, (currentPage + 1) * cardsPerPage);
       slice.forEach(t => {
         const card = document.createElement('div');
-        card.className = 'card';
+        card.className = 'tarjeta';
         if (t.featured) {
           const tag = document.createElement('span');
-          tag.className = 'tag';
+          tag.className = 'tarjeta__etiqueta';
           tag.textContent = 'Destacado';
           card.append(tag);
         }
         card.innerHTML += `
-          <img src="${t.img}" alt="${t.name}">
-          <div class="card-content">
-            <h3>${t.name}</h3>
-            <div class="rating">
-              ${[...Array(5)].map((_, i) => `<i class="fas fa-star" style="${i < t.rating ? '' : 'opacity:.3'}"></i>`).join('')}
-              <span>${t.opinions} opiniones</span>
+          <img src="${t.img}" alt="${t.name}" class="tarjeta__imagen">
+          <div class="tarjeta__contenido">
+            <h3 class="tarjeta__titulo">${t.name}</h3>
+            <div class="tarjeta__valoracion">
+              ${[...Array(5)].map((_, i) => `<i class="fas fa-star tarjeta__icono-valoracion" style="${i < t.rating ? '' : 'opacity:.3'}"></i>`).join('')}
+              <span class="tarjeta__texto-valoracion">${t.opinions} opiniones</span>
             </div>
-            <div class="price">$${t.price.toLocaleString()}</div>
-            <div class="experience"><i class="fas fa-award"></i>${t.experience} años de experiencia</div>
-            <a href="#" class="btn-book">Agenda</a>
+            <div class="tarjeta__precio">$${t.price.toLocaleString()}</div>
+            <div class="tarjeta__experiencia"><i class="fas fa-award tarjeta__icono-experiencia"></i>${t.experience} años de experiencia</div>
+            <a href="#" class="tarjeta__boton">Agenda</a>
           </div>`;
         container.append(card);
       });
     }
-    document.querySelector('.arrow.prev').onclick = () => {
+    document.querySelector('.carrusel__boton--anterior').onclick = () => {
       currentPage = currentPage > 0 ? currentPage - 1 : Math.floor((teachers.length - 1) / cardsPerPage);
       renderCards();
     };
-    document.querySelector('.arrow.next').onclick = () => {
+    document.querySelector('.carrusel__boton--siguiente').onclick = () => {
       currentPage = (currentPage + 1) * cardsPerPage < teachers.length ? currentPage + 1 : 0;
       renderCards();
     };
